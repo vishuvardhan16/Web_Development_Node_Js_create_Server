@@ -14,6 +14,16 @@ console.log(`Starting Our Server`);
 
 const server = http.createServer(app);
 
-server.listen(PORT,() => {
-    console.log(`server is listening on ${PORT}`);
+
+
+mongoose
+.connect(process.env.MANGO_URI)
+.then(() => {
+    server.listen(PORT,() => {
+        console.log(`server is listening on ${PORT}`);
+    });
+})
+.catch((err) =>  {
+    console.log(`MongoDB databes connection failed`);
+    console.error(err);
 });
